@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '',
         'PORT': '3306',
         'NAME': 'mbr_master',
     }
@@ -133,5 +133,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  
+    "http://localhost:3000",
 ]
+
+CORS_ALLOW_CREDENTIALS = True

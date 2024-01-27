@@ -11,3 +11,9 @@ class users(models.Model):
     class Meta:
         db_table = "users"
 
+class Unidad(models.Model):
+    nombre = models.CharField(max_length=255)
+
+class Area(models.Model):
+    unidad = models.ForeignKey(Unidad, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=255)

@@ -4,9 +4,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from django.http import Http404
+from django.http import JsonResponse
 
-from .models import users
-from .serializer import usersSerializer
+from .models import users, Unidad, Area
+from .serializer import usersSerializer,  UnidadSerializer, AreaSerializer
 # Create your views here.
 class usersView(APIView):
     def get(self, request):
@@ -50,3 +51,37 @@ class usersDetail(APIView):
         Users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+@api_view(['POST'])
+def nueva_unidad(request):
+    if request.method == 'POST':
+        serializer = UnidadSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success'})
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors}, status=400)
+
+@api_view(['POST'])
+def nueva_area(request):
+    if request.method == 'POST':
+        serializer = AreaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success'})
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors}, status=400)
+
+@api_view(['GET'])
+def consultar(request):
+    unidades = Unidad.objects.all()
+    areas = Area.objects.all()
+    
+    unidad_serializer = UnidadSerializer(unidades, many=True)
+    area_serializer = AreaSerializer(areas, many=True)
+
+    data = {
+        'unidades': unidad_serializer.data,
+        'areas': area_serializer.data,
+    }
+    
+    return Response(data)
