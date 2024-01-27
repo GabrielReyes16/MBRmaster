@@ -4,10 +4,19 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from django.http import Http404
+from django.http import JsonResponse
+from rest_framework import permissions, status
+from rest_framework.decorators import api_view, permission_classes
 
 from .models import users
 from .serializer import usersSerializer
+
 # Create your views here.
+@api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
+def create_post(request):
+    return JsonResponse({'msg': 'todo funcionando'})
+
 class usersView(APIView):
     def get(self, request):
         Users = users.objects.all()
