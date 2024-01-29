@@ -8,23 +8,65 @@ from django.http import JsonResponse
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 
-from .models import users
-from .serializer import usersSerializer
+from .models import users, Unidad, Area
+from .serializer import UserSerializer, UnidadSerializer, AreaSerializer, MyTokenObtainPairSerializer, RegisterSerializer
 
 # Create your views here.
-@api_view(["POST"])
-@permission_classes([permissions.IsAuthenticated])
-def create_post(request):
-    return JsonResponse({'msg': 'todo funcionando'})
+#Authentication
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import generics
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = users.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
+
+
+# Get All Routes
+
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        '/mbr_master/token/',
+        '/mbr_master/register/',
+        '/mbr_master/token/refresh/'
+    ]
+    return Response(routes)
+
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def testEndPoint(request):
+    if request.method == 'GET':
+        data = f"Congratulation {request.user}, your API just responded to GET request"
+        return Response({'response': data}, status=status.HTTP_200_OK)
+    elif request.method == 'POST':
+        text = "Hello buddy"
+        data = f'Congratulation your API just responded to POST request with text: {text}'
+        return Response({'response': data}, status=status.HTTP_200_OK)
+    return Response({}, status.HTTP_400_BAD_REQUEST)
+
+
+#App views
 
 class usersView(APIView):
     def get(self, request):
         Users = users.objects.all()
-        serializer = usersSerializer(Users, many=True)
+        serializer = UserSerializer(Users, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = usersSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -41,12 +83,12 @@ class usersDetail(APIView):
 
     def get(self, request, pk):
         Users = self.get_object(pk)
-        serializer = usersSerializer(Users)
+        serializer = UserSerializer(Users)
         return Response(serializer.data)
 
     def put(self, request, pk):
         Users = self.get_object(pk)
-        serializer = usersSerializer(Users, data=request.data)
+        serializer = UserSerializer(Users, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -59,3 +101,37 @@ class usersDetail(APIView):
         Users.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+@api_view(['POST'])
+def nueva_unidad(request):
+    if request.method == 'POST':
+        serializer = UnidadSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success'})
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors}, status=400)
+
+@api_view(['POST'])
+def nueva_area(request):
+    if request.method == 'POST':
+        serializer = AreaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'status': 'success'})
+        else:
+            return Response({'status': 'error', 'errors': serializer.errors}, status=400)
+
+@api_view(['GET'])
+def consultar(request):
+    unidades = Unidad.objects.all()
+    areas = Area.objects.all()
+    
+    unidad_serializer = UnidadSerializer(unidades, many=True)
+    area_serializer = AreaSerializer(areas, many=True)
+
+    data = {
+        'unidades': unidad_serializer.data,
+        'areas': area_serializer.data,
+    }
+    
+    return Response(data)
