@@ -4,6 +4,7 @@ import Consultas from './components/Consultas';
 import NuevaUnidad from './components/NuevaUnidad';
 import NuevaArea from './components/NuevaArea';
 import Dashboard from './components/Dashboard';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/api/nueva_unidad" element={<NuevaUnidad />} />
         <Route path="/api/nueva_area" element={<NuevaArea />} />
         <Route path="/api/dashboard" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
