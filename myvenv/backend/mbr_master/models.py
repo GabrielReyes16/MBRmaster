@@ -14,7 +14,6 @@ class users(AbstractUser):
     class Meta:
         db_table = "users"
 
-<<<<<<< HEAD
 class Profile(models.Model):
     user = models.OneToOneField(users, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=1000)
@@ -38,16 +37,11 @@ def save_user_profile(sender, instance, **kwargs):
 post_save.connect(create_user_profile, sender=users)
 post_save.connect(save_user_profile, sender=users)
 
-=======
->>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 class Unidad(models.Model):
     nombre = models.CharField(max_length=255)
 
 class Area(models.Model):
     unidad = models.ForeignKey(Unidad, on_delete=models.CASCADE)
-<<<<<<< HEAD
-    nombre = models.CharField(max_length=255)
-=======
     nombre = models.CharField(max_length=255)
 
 class Banco(models.Model):
@@ -63,4 +57,3 @@ class Banco(models.Model):
 
     def __str__(self):
         return self.nombre
->>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b

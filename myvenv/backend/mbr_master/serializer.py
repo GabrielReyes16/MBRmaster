@@ -1,15 +1,10 @@
 from rest_framework import serializers
-<<<<<<< HEAD
-from .models import users, Unidad, Area, Profile
+from .models import users, Unidad, Area, Profile, Banco
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-=======
-from .models import *
-
->>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 
 #Authentication
 
@@ -17,7 +12,6 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = users
-<<<<<<< HEAD
         fields = ('id', 'username', 'email')
 
 
@@ -69,9 +63,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 #App serializers
     
-=======
-        fields = '__all__'
->>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 
 class UnidadSerializer(serializers.ModelSerializer):
     class Meta:
@@ -83,13 +74,9 @@ class AreaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Area
-<<<<<<< HEAD
-        fields = ['id', 'nombre', 'unidad', 'unidad_nombre']
-=======
         fields = ['id', 'nombre', 'unidad', 'unidad_nombre']
 
 class BancoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banco
         fields = '__all__'
->>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
