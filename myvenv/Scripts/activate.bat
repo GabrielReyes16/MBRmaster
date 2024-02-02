@@ -8,7 +8,11 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
+<<<<<<< HEAD
 set VIRTUAL_ENV=D:\MBRMaster\myvenv
+=======
+set VIRTUAL_ENV=C:\Proyecto maestro\MBRmaster\myvenv
+>>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 
 if not defined PROMPT set PROMPT=$P$G
 

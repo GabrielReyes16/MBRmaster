@@ -38,7 +38,11 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
+<<<<<<< HEAD
 VIRTUAL_ENV="D:\MBRMaster\myvenv"
+=======
+VIRTUAL_ENV="C:\Proyecto maestro\MBRmaster\myvenv"
+>>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

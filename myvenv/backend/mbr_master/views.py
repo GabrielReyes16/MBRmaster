@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from django.http import Http404
 from django.http import JsonResponse
+<<<<<<< HEAD
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 
@@ -59,6 +61,18 @@ def testEndPoint(request):
 
 #App views
 
+=======
+
+from .models import *
+from .serializer import *
+# Create your views here.
+
+class bancoView(viewsets.ModelViewSet):
+    serializer_class=BancoSerializer
+    queryset=Banco.objects.all()
+
+
+>>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 class usersView(APIView):
     def get(self, request):
         Users = users.objects.all()

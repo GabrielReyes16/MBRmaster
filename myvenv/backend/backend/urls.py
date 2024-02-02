@@ -30,7 +30,10 @@ class Protegida(APIView):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mbr/', include("mbr_master.urls")),
+<<<<<<< HEAD
     path('mbr_master/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('mbr_master/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('protegida/', Protegida.as_view(), name='protegida')
+=======
+>>>>>>> 686b5d64b0b6e56274dd2120bc27871023d6015b
 ]
