@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api';
 
 const NuevaArea = () => {
   const [nombreArea, setNombreArea] = useState('');
   const [unidades, setUnidades] = useState([]);
   const [selectedUnidad, setSelectedUnidad] = useState('');
+  const [mensaje, setMensaje] = useState('');
 
   useEffect(() => {
     const fetchUnidades = async () => {
@@ -27,19 +29,32 @@ const NuevaArea = () => {
 
       setNombreArea('');
       setSelectedUnidad('');
+      setMensaje('Área guardada correctamente.');
+      setTimeout(() => {
+        setMensaje('');
+      }, 3000); 
     } catch (error) {
       console.error('Error al guardar nueva área:', error);
+      setMensaje('Error al guardar el área. Por favor, inténtalo de nuevo.');
     }
   };
 
   return (
     <div>
-      {/* Nuevo Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body" data-bs-theme="dark">
+      {/* Navbar */}
+      <nav
+        className="navbar navbar-expand-lg navbar-dark border-bottom border-body"
+        style={{
+          background: '#2c3e50',
+          background: '-webkit-linear-gradient(to right, #3498db, #2c3e50)',
+          background: 'linear-gradient(to right, #3498db, #2c3e50)'
+        }}
+        data-bs-theme="dark"
+      >
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link to="/menu" className="navbar-brand">
             Dashboard
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -53,25 +68,29 @@ const NuevaArea = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <a className="nav-link active" aria-current="page" href="Maestro.html">
+              <Link to="/menu/maestro" className="nav-link">
                 Maestro
-              </a>
-              <a className="nav-link" href="Organizacion.html">
+              </Link>
+              <Link to="/menu/maestro/organizacion" className="nav-link">
                 Organizacion
-              </a>
-              <a className="nav-link disabled" aria-disabled="true">
+              </Link>
+              {/* Use a button instead of an anchor for a disabled link */}
+              <button className="nav-link disabled" aria-disabled="true">
                 Nueva Area
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </nav>
-
+      <hr />
       {/* Contenedor del formulario */}
       <div className="container mt-4">
         <div className="card">
           <div className="card-body">
             <h2 className="card-title mb-4">Nueva Área</h2>
+            {mensaje && <div className={`alert ${mensaje.includes('correctamente') ? 'alert-success' : 'alert-danger'}`} role="alert">
+              {mensaje}
+            </div>}
             <div className="mb-3">
               <label className="form-label">Nombre de la Área:</label>
               <input
@@ -96,9 +115,14 @@ const NuevaArea = () => {
                 ))}
               </select>
             </div>
-            <button className="btn btn-primary" onClick={handleGuardar}>
-              Guardar
-            </button>
+            <div className="d-flex justify-content-between">
+              <button className="btn btn-primary" onClick={handleGuardar}>
+                Guardar
+              </button>
+              <Link to="/menu/maestro/organizacion" className="btn btn-secondary">
+                Regresar
+              </Link>
+            </div>
           </div>
         </div>
       </div>

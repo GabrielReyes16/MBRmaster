@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import users, Unidad, Area, Profile, Banco
+#Auth models
+from .models import User, Profile
+#Other models
+from .models import Unidad, Area, Banco, Tipo, Persona, Direccion, Contacto, CuentaBancaria, ImpuestoAsociado, PersonaImpuesto, TipoPago, PersonaTipoPago
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
@@ -8,10 +11,9 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 #Authentication
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = users
+        model = User
         fields = ('id', 'username', 'email')
 
 
@@ -37,7 +39,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = users
+        model = User
         fields = ('email', 'username', 'password', 'password2')
 
     def validate(self, attrs):
@@ -48,7 +50,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        user = users.objects.create(
+        user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email']
 
@@ -79,4 +81,49 @@ class AreaSerializer(serializers.ModelSerializer):
 class BancoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banco
+        fields = '__all__'
+
+class TipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tipo
+        fields = '__all__'
+
+class PersonaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Persona
+        fields = '__all__'
+
+class DireccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Direccion
+        fields = '__all__'
+
+class ContactoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contacto
+        fields = '__all__'
+
+class CuentaBancariaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CuentaBancaria
+        fields = '__all__'
+
+class ImpuestoAsociadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImpuestoAsociado
+        fields = '__all__'
+
+class PersonaImpuestoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonaImpuesto
+        fields = '__all__'
+
+class TipoPagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TipoPago
+        fields = '__all__'
+
+class PersonaTipoPagoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonaTipoPago
         fields = '__all__'

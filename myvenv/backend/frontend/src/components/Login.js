@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useContext } from "react";
+import React, { useState, useContext } from 'react';
 import AuthContext from "../context/AuthContext";
+import "../utils/css/login.css";
+
 
 
 function Login() {
@@ -17,14 +18,17 @@ function Login() {
 
     }
     return(
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="email" name="email" placeholder="email" />
-                <input type="password" name="password" placeholder="password" />
-                <button type="submit">Login</button>
-            </form>
+        <div class="login">
+            <div class="form">
+                <h2>Bienvenido</h2>
+        <form onSubmit={handleSubmit}>
+            <input type="email" name="email" placeholder="Email" autofocus/>
+            <input type="password" name="password" placeholder="Password" />
+            <input type="submit" value="Log in" class="submit"/>
+        </form>
+        </div>
         </div>
     );
+
 }
 export default Login;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
-const Gastos = () => {
+const Organizacion = () => {
   return (
     <div>
       {/* Navbar */}
@@ -34,49 +34,43 @@ const Gastos = () => {
               <Link to="/menu/maestro" className="nav-link">
                 Maestro
               </Link>
-              <Link to="/menu/gastos" className="nav-link">
-                Gastos
-              </Link>
-              <Link to="/menu/ventas" className="nav-link">
-                Ventas
-              </Link>
-              <Link to="/menu/compras" className="nav-link">
-                Compras
-              </Link>
-              <Link to="/menu/almacen" className="nav-link">
-                Almacen
-              </Link>
-              <Link to="/menu/finanzas" className="nav-link">
-                Finanzas
-              </Link>
-              <Link to="/menu/recursos_humanos" className="nav-link">
-                Recursos Humanos
-              </Link>
+              <button className="nav-link" disabled>
+                Organizacion
+              </button>
             </div>
           </div>
         </div>
       </nav>
       <hr />
+      {/* Contenedor de tarjetas */}
       <div className="container">
         <div className="row">
-          <div className="col-md-6 mb-3">
-            <div className="card" style={{ width: '18rem' }}>
+          <div className="col-md-4 mb-3">
+            <div className="card">
               <img src="https://i.pinimg.com/474x/c0/d1/da/c0d1da39c107f4f840789bb58b890aeb.jpg" className="card-img-top" alt="..." />
               <div className="card-body">
-                <h5 className="card-title">Nuevo Ingreso</h5>
-                <Link to="/menu/usuarios" className="btn btn-primary">
-                  Vamos a Usuarios
+                <Link to="/menu/maestro/organizacion/nueva_unidad" className="btn btn-primary">
+                  Nueva Unidad
                 </Link>
               </div>
             </div>
           </div>
-          <div className="col-md-6 mb-3">
-            <div className="card" style={{ width: '18rem' }}>
+          <div className="col-md-4 mb-3">
+            <div className="card">
+              <img src="https://i.pinimg.com/474x/c0/d1/da/c0d1da39c107f4f840789bb58b890aeb.jpg" className="card-img-top" alt="..." />
+              <div className="card-body">
+                <Link to="/menu/maestro/organizacion/nueva_area" className="btn btn-primary">
+                  Nueva Area
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 mb-3">
+            <div className="card">
               <img src="https://fececo.org.ar/wp-content/uploads/2022/06/personas-usuarios.png" className="card-img-top" alt="..." />
               <div className="card-body">
-                <h5 className="card-title">Consultas</h5>
-                <Link to="/menu/tipo_usuarios" className="btn btn-primary">
-                  Vamos a Tipos de Usuario
+                <Link to="/menu/maestro/organizacion/consultar" className="btn btn-primary">
+                  Consultas
                 </Link>
               </div>
             </div>
@@ -88,4 +82,4 @@ const Gastos = () => {
   );
 };
 
-export default Gastos;
+export default Organizacion;

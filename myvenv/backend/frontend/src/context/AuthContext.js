@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
                 const decodedUser = jwt_decode(data.access);
                 setUser(decodedUser);
                 localStorage.setItem("authTokens", JSON.stringify(data));
-                navigate("/api/dashboard");
+                navigate("/menu");
 
                 swal.fire({
                     title: "Bienvenido, " + decodedUser.username,
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
             })
         })
         if(response.status === 201){
-            navigate("/login")
+            navigate("/")
             swal.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        navigate("/login")
+        navigate("/")
         swal.fire({
             title: "You have been logged out...",
             icon: "success",
